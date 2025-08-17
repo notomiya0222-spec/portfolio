@@ -471,3 +471,30 @@ main, section, .section, .section-inner, .container {
 
 /* 横スクロールが出ないよう保険 */
 html, body{ overflow-x: hidden; }
+
+/* ヘッダーを常に最上部に固定（スマホ/PC両対応） */
+header, .site-header, body > header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;                /* ほかの要素より前面に */
+  width: 100%;
+  /* 透明度のある背景 + ぼかしで読みやすく */
+  background: rgba(255,255,255,.78);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+
+/* スクロール後は少しだけ目立たせる（任意） */
+body.scrolled header,
+body.scrolled .site-header,
+body.scrolled > header {
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* アンカーリンクのずれ防止（#about 等に飛んだときの上詰まりを回避） */
+:target { scroll-margin-top: 84px; }
+@media (max-width: 640px){
+  :target { scroll-margin-top: 66px; }
+}

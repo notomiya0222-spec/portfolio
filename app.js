@@ -321,3 +321,12 @@ function bindCopy(btnId, text, stateId){
 // Gmail / TikTok をバインド
 bindCopy("copyEmail",  "usausakuraba@gmail.com", "emailState");
 bindCopy("copyTikTok", "@sakuraba_usa",          "tiktokState");
+
+// スクロールでヘッダーの背景/影を強める（任意）
+(function(){
+  const onScroll = () => {
+    document.body.classList.toggle('scrolled', window.scrollY > 4);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();
