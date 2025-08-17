@@ -34,7 +34,6 @@
       <a href="#about">About</a>
       <a href="#works">Works</a>
       <a href="#contact">Contact</a>
-      <button id="adminBtn" title="管理モード">⚙</button>
     </nav>
   </header>
 
@@ -77,27 +76,21 @@
 
       <!-- Category Cards -->
       <div id="works-home" class="cat-cards">
-        <button class="cat-card cat-card--illust" data-kind="Illustration">
-          <span class="cat-thumb">
-            <img src="./images/くみあわせ.png" alt="Illustration" loading="lazy" decoding="async">
-          </span>
+        <button class="cat-card" data-kind="Illustration">
+          <div class="cat-thumb" style="background-image:url('./images/ロゴデザイン.png')"></div>
           <div class="cat-body">
             <div class="cat-title">イラスト</div>
             <div class="cat-sub">Illustration</div>
           </div>
         </button>
-
-        <button class="cat-card cat-card--3d" data-kind="3D">
-          <span class="cat-thumb">
-            <img src="./images/boothサムネイル1.png" alt="3D Models" loading="lazy" decoding="async">
-          </span>
+        <button class="cat-card" data-kind="3D">
+          <div class="cat-thumb" style="background-image:url('./images/boothサムネイル1.png')"></div>
           <div class="cat-body">
             <div class="cat-title">3Dモデル</div>
             <div class="cat-sub">3D Models</div>
           </div>
         </button>
       </div>
-
 
       <!-- Listing -->
       <div id="works-list" class="hidden">
@@ -166,31 +159,6 @@
         <div id="modalMeta" class="modal-meta"></div>
         <p id="modalDesc" class="modal-desc"></p>
         <a id="modalLink" class="btn primary hidden" target="_blank" rel="noopener">作品ページへ ↗</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Admin Panel -->
-  <div id="admin" class="admin hidden" onclick="if (event.target === this) closeAdmin()">
-    <div class="admin-card" onclick="event.stopPropagation()">
-      <div class="admin-head">
-        <h3>作品を編集（ローカル・JSON入出力）</h3>
-        <button id="adminClose" class="btn tiny" onclick="closeAdmin()">閉じる</button>
-      </div>
-      <div class="admin-help mini muted">
-        編集後は「JSONを書き出し」で保存 → サーバの <code>projects.json</code> を置き換えor保管。<br/>
-        いまはローカルストレージを使用しています（公開前に消去可）。
-      </div>
-      <div class="admin-body">
-        <div class="admin-list" id="adminList"></div>
-        <div class="admin-actions">
-          <label class="file-btn">
-            JSONを読み込み
-            <input id="jsonImport" type="file" accept="application/json" />
-          </label>
-          <button id="jsonExport" class="btn primary">JSONを書き出し</button>
-          <button id="addItem" class="btn">作品を追加</button>
-        </div>
       </div>
     </div>
   </div>
