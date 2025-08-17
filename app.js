@@ -330,3 +330,19 @@ bindCopy("copyTikTok", "@sakuraba_usa",          "tiktokState");
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
+// ===== 固定ヘッダーの高さを自動で反映（リサイズにも対応） =====
+(function(){
+  const header = document.querySelector('header, .site-header, body > header');
+  if (!header) return;
+  const setH = () => {
+    const h = header.offsetHeight || 64;
+    document.documentElement.style.setProperty('--header-h', h + 'px');
+  };
+  setH();
+  window.addEventListener('resize', setH, { passive: true });
+
+  // スクロールで影を強める用のクラス（任意）
+  const onScroll = () => document.body.classList.toggle('scrolled', window.scrollY > 4);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();

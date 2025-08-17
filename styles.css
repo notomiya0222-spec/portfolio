@@ -498,3 +498,30 @@ body.scrolled > header {
 @media (max-width: 640px){
   :target { scroll-margin-top: 66px; }
 }
+/* ===== 常時固定ヘッダー（スマホ/PC） ===== */
+:root{ --header-h: 64px; }           /* 初期値。JSで実寸に上書きします */
+
+header, .site-header, body > header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+  background: rgba(255,255,255,.85);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* ヘッダーの重なりで本文が隠れないように上に余白を確保 */
+html, body { overflow-x: hidden; }   /* 横スクロール保険 */
+body{ padding-top: var(--header-h); }
+
+/* スクロール後に少しだけ影を強める（任意） */
+body.scrolled header,
+body.scrolled .site-header,
+body.scrolled > header{
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+  background: rgba(255,255,255,.92);
+}
+
+/* アンカー(#about 等)に飛んだ時の被り防止 */
+:target{ scroll-margin-top: calc(var(--header-h) + 12px); }
