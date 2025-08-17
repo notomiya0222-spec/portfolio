@@ -346,3 +346,18 @@ bindCopy("copyTikTok", "@sakuraba_usa",          "tiktokState");
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 })();
+
+// 固定ヘッダーの実高さをCSSへ反映＆影のON/OFF
+(function(){
+  const header = document.querySelector('header, .site-header, body > header');
+  if (!header) return;
+  const setH = () => {
+    const h = header.offsetHeight || 64;
+    document.documentElement.style.setProperty('--header-h', h + 'px');
+  };
+  setH();
+  window.addEventListener('resize', setH, { passive: true });
+  const onScroll = () => document.body.classList.toggle('scrolled', window.scrollY > 4);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+})();

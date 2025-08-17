@@ -525,3 +525,37 @@ body.scrolled > header{
 
 /* アンカー(#about 等)に飛んだ時の被り防止 */
 :target{ scroll-margin-top: calc(var(--header-h) + 12px); }
+
+/* ヘッダーは常にフルブリード（画面いっぱい） */
+header, .site-header, body > header{
+  position: fixed;
+  top: 0;
+  left: 0; right: 0;           /* ← これでビューポートいっぱい */
+  z-index: 10000;
+  background: rgba(255,255,255,.85);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* ヘッダー内の“中身”だけは本文幅に合わせて中央寄せ */
+header .inner, .site-header .inner, body > header .inner{
+  max-width: var(--content-max, 1120px);
+  margin: 0 auto;
+  padding-inline: clamp(12px, 2vw, 24px);
+  display: flex; align-items: center; gap: 16px;
+}
+
+/* 本文がヘッダーの下に潜らないように上余白を自動で確保 */
+:root{ --header-h: 64px; }         /* JSで実寸に上書きします */
+body{ padding-top: var(--header-h); }
+html, body{ overflow-x: hidden; }  /* 横スクロール抑止 */
+
+/* スクロール時に少し影を強める（任意） */
+body.scrolled header{ 
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* アンカー(#about 等)のずれ対策 */
+:target{ scroll-margin-top: calc(var(--header-h) + 12px); }
