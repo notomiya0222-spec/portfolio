@@ -442,3 +442,32 @@ main, section, .section, .section-inner, .container {
   margin-left: auto;
   margin-right: auto;
 }
+
+
+/* ===== PCでヒーローだけフルブリード（画面いっぱい）にする ===== */
+@media (min-width: 1024px){
+  /* #hero / .hero を使っていない場合でも効くように最初のセクションも捕まえる */
+  :is(#hero, .hero, body > main > section:first-of-type){
+    max-width: none !important;
+    width: 100vw !important;
+    /* 中央のレイアウト幅からはみ出させるテクニック */
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+
+    /* 端ピッタリだと窮屈なので左右に安全余白 */
+    padding-left: max(24px, calc(50vw - var(--content-max, 1120px)/2));
+    padding-right: max(24px, calc(50vw - var(--content-max, 1120px)/2));
+    box-sizing: border-box;
+  }
+
+  /* ヒーロー内の“内側ラッパー”があれば、そちらも幅制限を解除 */
+  :is(#hero, .hero, body > main > section:first-of-type) :is(.section-inner, .container){
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* 横スクロールが出ないよう保険 */
+html, body{ overflow-x: hidden; }
