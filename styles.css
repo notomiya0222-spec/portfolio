@@ -312,3 +312,35 @@ button, .btn, .tab{
   min-height: 44px;    /* 指で押しやすい高さ */
   touch-action: manipulation;
 }
+
+/* About の画像（ProfileImage）や Works の画像をレスポンシブ調整 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* セクションの横幅を制限して中央寄せ */
+section {
+  max-width: 900px; /* PC では900pxを上限 */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* スマホでの見やすさ調整 */
+@media (max-width: 768px) {
+  section {
+    padding: 10px;
+  }
+
+  h1, h2, h3 {
+    font-size: 90%; /* 見出しを少し小さく */
+  }
+
+  .project-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+}
