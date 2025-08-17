@@ -425,3 +425,20 @@ img, video { max-width: 100%; height: auto; display: block; }
   h1{ font-size: clamp(2.2rem, 3.2vw, 3.6rem) !important; line-height: 1.2; }
   h2{ font-size: clamp(1.6rem, 2.2vw, 2.2rem) !important; }
 }
+
+/* ---- Hero（最初の見出しエリア）は常に全幅表示 ---- */
+.hero, .hero .section, .hero .section-inner {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* 本文は中央寄せ制限 */
+main, section, .section, .section-inner, .container {
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
