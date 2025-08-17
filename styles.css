@@ -559,3 +559,46 @@ body.scrolled header{
 
 /* アンカー(#about 等)のずれ対策 */
 :target{ scroll-margin-top: calc(var(--header-h) + 12px); }
+
+/* ===== ヘッダーを画面いっぱい、内側は本文幅に ===== */
+:root{ --header-h: 64px; }
+
+body > header,            /* できるだけ強く捕まえる */
+header,
+.site-header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+
+  /* ★ 中央幅の制限を解除してフルブリード化 */
+  max-width: none !important;
+  width: 100vw !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+
+  /* 背景はヘッダー本体に付ける（内側には付けない） */
+  background: rgba(255,255,255,.85) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+
+/* 内側ラッパー（ロゴとナビを包む要素）を中央幅に */
+body > header > .inner,
+header > .inner,
+.site-header > .inner{
+  max-width: var(--content-max, 1120px) !important;
+  margin: 0 auto !important;
+  padding-inline: clamp(12px, 2vw, 24px);
+  background: transparent !important;   /* ★ 白帯が真ん中だけになるのを防ぐ */
+}
+
+/* 本文がヘッダーの下に潜らないように余白を確保 */
+body{ padding-top: var(--header-h); }
+html, body{ overflow-x: hidden; }
+
+/* スクロール時の影（任意） */
+body.scrolled header{ background: rgba(255,255,255,.92); box-shadow: 0 6px 24px rgba(0,0,0,.06); }
+
+/* アンカー位置補正 */
+:target{ scroll-margin-top: calc(var(--header-h) + 12px); }
