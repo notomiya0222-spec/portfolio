@@ -1,19 +1,507 @@
-/* ===== ベース ===== */
-* { box-sizing: border-box; }
-body {
-  margin: 0;
-  font-family: 'Noto Sans JP', sans-serif;
-  line-height: 1.6;
-  background: #fff0f5;
-  color: #333;
+/* Base */
+:root{
+  --bg:#fff;
+  --text:#1f2937;
+  --muted:#6b7280;
+  --rose:#f472b6;
+  --rose-50:#fff1f7;
+  --rose-100:#ffe3ea;
+  --rose-200:#fecdd3;
+  --rose-300:#fda4af;
+  --ring:rgba(255, 182, 193, 0.55);
+  --shadow:0 10px 20px rgba(0,0,0,.06);
+  --font-jp:'Zen Maru Gothic', system-ui, -apple-system, 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Segoe UI', Roboto, sans-serif;
+  --font-en:'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
 }
-h1, h2, h3, h4 { margin: 0; font-weight: 700; }
-a { color: inherit; text-decoration: none; }
-button { font: inherit; cursor: pointer; border: none; background: none; }
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:var(--font-jp);}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
 
-/* ===== ヘッダー ===== */
-:root{ --header-h: 64px; }
+/* Header */
+.site-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(255,255,255,.8);backdrop-filter:saturate(160%) blur(8px);
+  border-bottom:1px solid #f5d0e6;
+}
+.site-header .brand{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem}
+.brand .logo{width:32px;height:32px}
+.brand-name{font-family:var(--font-en);font-weight:600}
+.nav{display:flex;align-items:center;gap:1rem;padding:.5rem 1rem}
+.nav a{opacity:.9}
+.nav a:hover{color:#be185d}
+.nav button{border:1px solid #f5d0e6;background:#fff;border-radius:999px;padding:.25rem .6rem}
+.nav button:hover{background:#fff0f5}
+
+/* Utilities */
+.content{max-width:72rem;margin:0 auto;padding:0 1rem}
+.btn{border:1px solid #f5d0e6;background:#fff;border-radius:999px;padding:.6rem 1rem;box-shadow:var(--shadow)}
+.btn:hover{background:#fff0f5}
+.btn.primary{background:#ec4899;color:#fff;border-color:#ec4899}
+.btn.primary:hover{background:#db2777}
+.btn.ghost{background:#fff;color:#ec4899}
+.btn.tiny{padding:.3rem .6rem;border-radius:.6rem;font-size:.9rem}
+.chip{display:inline-block;background:rgba(255,255,255,.7);padding:.2rem .6rem;border-radius:999px;color:#be185d;box-shadow:var(--shadow)}
+.muted{color:var(--muted)}
+.mini{font-size:.85rem}
+.hidden{display:none}
+.br-md{display:none}
+@media(min-width:640px){.br-md{display:inline}}
+
+/* Hero */
+.hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:
+   radial-gradient(80% 50% at 50% 0%, var(--rose-100), transparent),
+   radial-gradient(50% 50% at 90% 20%, var(--rose-200), transparent);
+}
+.hero-inner{padding:6rem 0 8rem}
+.hero h1{font-size:clamp(2rem,3.8vw,3.4rem);line-height:1.15;margin:.6rem 0 0}
+.hero p{max-width:44rem}
+.cta-row{display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1rem}
+
+/* Petals */
+.petals{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.95}}
+
+/* About */
+.about{padding:3rem 0}
+.about-grid{display:grid;grid-template-columns:1fr;gap:2rem}
+@media(min-width:900px){.about-grid{grid-template-columns:1.2fr 1fr}}
+.profile{border:1px solid #f4d4e3;background:linear-gradient(135deg,var(--rose-50),#ffe4ec);border-radius:1.2rem;box-shadow:var(--shadow);min-height:20rem;display:flex;align-items:center;justify-content:center}
+.profile-placeholder{color:#e879f9}
+
+/* Works */
+.works{padding:3rem 0 4rem}
+.cat-cards{display:grid;gap:1rem;grid-template-columns:1fr; margin-top:1rem}
+@media(min-width:640px){.cat-cards{grid-template-columns:1fr 1fr}}
+.cat-card{display:flex;flex-direction:column;border:1px solid #f5d0e6;border-radius:1.2rem;overflow:hidden;background:#fff;box-shadow:var(--shadow);transition:transform .25s}
+.cat-card:hover{transform:translateY(-2px)}
+.cat-thumb{aspect-ratio:4/3;background-size:cover;background-position:center}
+.cat-body{display:flex;justify-content:space-between;align-items:center;padding:1rem}
+.cat-title{font-size:1.25rem;font-weight:700}
+.cat-sub{color:var(--muted)}
+
+.list-top{display:flex;align-items:center;justify-content:space-between;margin:.5rem 0 1rem}
+.tabs{display:flex;gap:.5rem}
+.tab{font-weight:600;border:1px solid #f5d0e6;border-radius:999px;padding:.6rem 1rem}
+.tab.active{background:#ec4899;border-color:#ec4899;color:#fff}
+.grid{display:grid;grid-template-columns:1fr;gap:1rem}
+@media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+.card{display:block;border:1px solid #f5d0e6;border-radius:1.2rem;overflow:hidden;background:#fff;box-shadow:var(--shadow);text-align:left}
+.card .thumb{aspect-ratio:4/3;background:#fff;overflow:hidden}
+.card .thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.card:hover .thumb img{transform:scale(1.03)}
+.card .body{padding:1rem}
+.card .meta{display:flex;justify-content:space-between;color:#6b7280;font-size:.85rem}
+
+/* Contact */
+.contact{padding:3rem 0}
+.contact-grid{display:grid;grid-template-columns:1fr; gap:.6rem}
+@media(min-width:720px){.contact-grid{grid-template-columns:repeat(3,1fr)}}
+.contact-item{display:flex;align-items:center;justify-content:space-between;border:1px solid #e5e7eb;border-radius:1rem;background:#fff;padding:.9rem 1rem}
+.contact-item:hover{border-color:#f5d0e6;background:#fff0f5}
+.arrow{opacity:.65}
+
+/* Footer */
+.site-footer{border-top:1px solid #f5d0e6;background:rgba(255,255,255,.8);backdrop-filter:saturate(160%) blur(8px);padding:1rem;display:flex;gap:.8rem;justify-content:space-between}
+.site-footer .muted{opacity:.9}
+
+/* Modal */
+.modal{position:fixed;inset:0;display:grid;place-items:center;z-index:60}
+.modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.4);backdrop-filter:blur(4px)}
+.modal-card{position:relative;z-index:1;background:#fff;border-radius:1.2rem;box-shadow:var(--shadow);width:min(100% - 2rem, 900px);overflow:hidden}
+.modal-close{position:absolute;top:.6rem;right:.6rem;border-radius:999px;border:1px solid #e5e7eb;background:#fff;padding:.2rem .6rem}
+.modal-close:hover{background:#f5f5f5}
+.modal .modal-media{background:#fff}
+.modal .modal-media img{width:100%;height:auto;display:block}
+.modal .modal-body{padding:1rem 1rem 1.5rem}
+.modal-title{font-size:1.3rem;margin:.25rem 0 .25rem}
+.modal-meta{color:#6b7280;font-size:.9rem;margin:.25rem 0 .75rem}
+.modal-desc{margin:.25rem 0 1rem}
+
+/* Admin */
+.admin{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.4);display:grid;place-items:center;padding:1rem}
+.admin-card{background:#fff;border-radius:1rem;box-shadow:var(--shadow);width:min(100% - 2rem, 1000px);max-height:80vh;overflow:auto}
+.admin-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;padding:1rem}
+.admin-body{display:grid;grid-template-columns:320px 1fr;gap:1rem;padding:1rem}
+@media(max-width:900px){.admin-body{grid-template-columns:1fr}}
+.admin-help{padding:0 1rem}
+.admin-list{display:grid;gap:.6rem}
+.admin-item{display:flex;gap:.6rem;align-items:center;border:1px solid #eee;border-radius:.8rem;padding:.4rem}
+.admin-item img{width:72px;height:56px;object-fit:cover;border-radius:.5rem}
+.admin-actions{display:flex;gap:.6rem;align-items:center;justify-content:flex-end;padding:0 1rem 1rem}
+.file-btn{border:1px solid #e5e7eb;border-radius:.6rem;padding:.4rem .6rem;background:#fff;position:relative}
+.file-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.form{display:grid;gap:.6rem}
+.form label{display:block}
+.form input, .form textarea, .form select{width:100%;border:1px solid #e5e7eb;border-radius:.6rem;padding:.5rem}
+
+.modal.hidden, .admin.hidden { display: none !important; }
+
+/* --- Workモーダルの見え方を安定させる --- */
+.modal-card{
+  /* 画面に収まる上限をつける */
+  max-height: 90vh;
+  overflow: auto;
+}
+
+/* 画像エリアは中央寄せ＆はみ出さない */
+.modal .modal-media{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  /* 画像の縦方向の上限を決める（テキストが隠れない） */
+  max-height: 60vh;  /* お好みで 55〜70vh に調整可 */
+  overflow: hidden;
+}
+
+/* 画像は“収まる”優先に */
+.modal .modal-media img{
+  max-width: 100%;
+  max-height: 58vh;  /* mediaより少し小さく */
+  width: auto;
+  height: auto;
+  object-fit: contain;  /* 全体を収める */
+}
+
+@media (max-width: 640px){
+  .modal-card{ max-height: 88vh; }
+  .modal .modal-media{ max-height: 50vh; }
+  .modal .modal-media img{ max-height: 48vh; }
+}
+
+/* --- About のプロフィール枠を画像に合わせて白に --- */
+.profile{
+  background: #fff !important;     /* グラデをやめて白に */
+  padding: 0;                       /* 余白で帯が見えないように */
+}
+
+/* ボタンのデフォルト余白をリセット */
+.contact-item {
+  all: unset;            /* ブラウザのデフォルトを一旦リセット */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem 1rem;  /* 好みの余白をここで再設定 */
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  font-family: inherit;
+}
+
+/* Contact セクションのレイアウトとすき間 */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2列 */
+  gap: 12px 16px;                 /* 縦 12px / 横 16px のすき間 */
+}
+
+/* ボタン自体の箱の安定化 */
+.contact-item{
+  box-sizing: border-box;  /* 内側のパディングで幅が増えないように */
+  width: 100%;
+  min-height: 64px;        /* 重なり防止のため最低高さを確保（好みで） */
+  padding: 12px 16px;      /* お好みで */
+}
+
+/* スマホでは1列に */
+@media (max-width: 640px){
+  .contact-grid{
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}
+/* ====== 共通の安全設定 ====== */
+img, video { max-width: 100%; height: auto; }
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ====== レイアウト最大幅（PC時） ====== */
+.container, .section-inner {
+  max-width: 1120px;   /* 中央の本文幅 */
+  margin: 0 auto;
+  padding: 0 24px;     /* 画面端の余白 */
+}
+
+/* ====== Works グリッド（PC→タブ→スマホ） ====== */
+#grid{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 1024px){
+  #grid{ grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px){
+  #grid{ grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ====== Contact の2列→1列 ====== */
+.contact-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* PCは2列 */
+  gap: 12px 16px;
+}
+@media (max-width: 640px){
+  .contact-grid{ grid-template-columns: 1fr; gap: 10px; }
+}
+.contact-item{
+  width: 100%;
+  min-height: 64px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #fff;
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+/* ====== About（プロフィールカード） ====== */
+.profile{
+  background: #fff !important;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 300px;
+}
+.profile img{
+  width: 100%;
+  height: 50vh;
+  object-fit: contain;              /* 切り抜かず全体を表示 */
+  border-radius: 1.2rem;            /* 枠の角丸に合わせる（お好みで） */
+  background: #fff;                 /* 画像の透明部分があっても白に */
+}
+@media (max-width: 640px){
+  .about-grid{ display: grid; grid-template-columns: 1fr; gap: 16px; }
+  .profile{ min-height: 220px; }
+}
+
+/* ====== タブ/パンくず等の折返し ====== */
+.tabs, .breadcrumb{ flex-wrap: wrap; gap: 8px; }
+
+/* ====== ヘッダー/ナビの詰め（スマホ） ====== */
+@media (max-width: 640px){
+  header, .site-nav{ padding: 10px 16px; }
+}
+
+/* ====== 文字サイズのスケール ====== */
+@media (max-width: 640px){
+  :root{ --fs-base: 14px; }
+  body{ font-size: var(--fs-base); line-height: 1.6; }
+  h1{ font-size: 1.6rem; }
+  h2{ font-size: 1.3rem; }
+  h3{ font-size: 1.1rem; }
+}
+
+/* ====== モーダルの見え方調整（スマホで溢れない） ====== */
+.modal-card{ max-height: 90vh; overflow: auto; }
+.modal .modal-media{ display:flex; align-items:center; justify-content:center; max-height: 60vh; overflow:hidden; background:#fff; }
+.modal .modal-media img{ max-width:100%; max-height:58vh; object-fit: contain; }
+@media (max-width: 640px){
+  .modal-card{ max-height: 88vh; }
+  .modal .modal-media{ max-height: 50vh; }
+  .modal .modal-media img{ max-height: 48vh; }
+}
+
+/* ====== タップしやすさ（ボタン類） ====== */
+button, .btn, .tab{
+  min-height: 44px;    /* 指で押しやすい高さ */
+  touch-action: manipulation;
+}
+
+/* About の画像（ProfileImage）や Works の画像をレスポンシブ調整 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* セクションの横幅を制限して中央寄せ */
+section {
+  max-width: 900px; /* PC では900pxを上限 */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* スマホでの見やすさ調整 */
+@media (max-width: 768px) {
+  section {
+    padding: 10px;
+  }
+
+  h1, h2, h3 {
+    font-size: 90%; /* 見出しを少し小さく */
+  }
+
+  .project-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+}
+/* 画像ははみ出さない */
+img, video { max-width: 100%; height: auto; display: block; }
+
+/* コンテンツ幅を中央に収める（多くの要素を一括で対象に） */
+:is(main, header, footer, section, .section, .section-inner, .container){
+  max-width: 1120px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* Works グリッド：PC→2列→1列 */
+#grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; }
+@media (max-width: 1024px){
+  #grid{ grid-template-columns: repeat(2, 1fr) !important; }
+}
+@media (max-width: 640px){
+  #grid{ grid-template-columns: 1fr !important; gap:12px; }
+}
+
+/* Contact：2列→1列（重なり防止） */
+.contact-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+}
+@media (max-width: 640px){
+  .contact-grid{ grid-template-columns: 1fr !important; gap:10px !important; }
+}
+.contact-item{
+  box-sizing: border-box;
+  width:100%;
+  min-height:64px;
+  padding:12px 16px;
+  border-radius:12px;
+  background:#fff;
+  display:flex; align-items:center; justify-content:space-between;
+}
+
+/* Aboutのプロフィールカード（はみ出し防止） */
+.profile{ background:#fff !important; border-radius:16px; padding:12px; }
+.profile img{ width:100%; height:100%; object-fit:contain; border-radius:12px; }
+
+/* ヒーロー見出し等をスマホで縮める */
+@media (max-width: 640px){
+  h1{ font-size: clamp(1.6rem, 6vw, 2.2rem) !important; line-height:1.25 !important; }
+  h2{ font-size: clamp(1.2rem, 4.8vw, 1.6rem) !important; }
+  .lead, .hero .lead{ font-size: .95rem !important; }
+  :is(main, section, .section, .section-inner, .container){ padding-inline: 12px !important; }
+}
+
+/* モーダル（スマホで溢れない） */
+.modal-card{ max-height: 90vh; overflow:auto; }
+.modal .modal-media{ display:flex; align-items:center; justify-content:center; max-height:60vh; overflow:hidden; background:#fff; }
+.modal .modal-media img{ max-width:100%; max-height:58vh; object-fit:contain; }
+@media (max-width: 640px){
+  .modal-card{ max-height:88vh; }
+  .modal .modal-media{ max-height:50vh; }
+  .modal .modal-media img{ max-height:48vh; }
+}
+/* PCでは本文幅を広げる（スマホの調整はそのまま維持） */
+:root{
+  --content-max: 1120px;         /* 既定 */
+}
+@media (min-width: 1200px){
+  :root{ --content-max: 1240px; } /* ノートPC～ */
+}
+@media (min-width: 1440px){
+  :root{ --content-max: 1360px; } /* 大きめディスプレイ */
+}
+
+/* 本文幅をこの変数で統一して中央寄せ（前に入れたルールの上書き） */
+:is(main, section, .section, .section-inner, .container){
+  max-width: var(--content-max) !important;
+  margin-inline: auto;
+}
+
+/* 見出しもPCでは少し大きめに戻す */
+@media (min-width: 1200px){
+  h1{ font-size: clamp(2.2rem, 3.2vw, 3.6rem) !important; line-height: 1.2; }
+  h2{ font-size: clamp(1.6rem, 2.2vw, 2.2rem) !important; }
+}
+
+/* ---- Hero（最初の見出しエリア）は常に全幅表示 ---- */
+.hero, .hero .section, .hero .section-inner {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 auto;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  box-sizing: border-box;
+}
+
+/* 本文は中央寄せ制限 */
+main, section, .section, .section-inner, .container {
+  max-width: var(--content-max);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ===== PCでヒーローだけフルブリード（画面いっぱい）にする ===== */
+@media (min-width: 1024px){
+  /* #hero / .hero を使っていない場合でも効くように最初のセクションも捕まえる */
+  :is(#hero, .hero, body > main > section:first-of-type){
+    max-width: none !important;
+    width: 100vw !important;
+    /* 中央のレイアウト幅からはみ出させるテクニック */
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+
+    /* 端ピッタリだと窮屈なので左右に安全余白 */
+    padding-left: max(24px, calc(50vw - var(--content-max, 1120px)/2));
+    padding-right: max(24px, calc(50vw - var(--content-max, 1120px)/2));
+    box-sizing: border-box;
+  }
+
+  /* ヒーロー内の“内側ラッパー”があれば、そちらも幅制限を解除 */
+  :is(#hero, .hero, body > main > section:first-of-type) :is(.section-inner, .container){
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* 横スクロールが出ないよう保険 */
+html, body{ overflow-x: hidden; }
+
+/* ヘッダーを常に最上部に固定（スマホ/PC両対応） */
 header, .site-header, body > header {
+  position: sticky;
+  top: 0;
+  z-index: 9999;                /* ほかの要素より前面に */
+  width: 100%;
+  /* 透明度のある背景 + ぼかしで読みやすく */
+  background: rgba(255,255,255,.78);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.05);
+}
+
+/* スクロール後は少しだけ目立たせる（任意） */
+body.scrolled header,
+body.scrolled .site-header,
+body.scrolled > header {
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* アンカーリンクのずれ防止（#about 等に飛んだときの上詰まりを回避） */
+:target { scroll-margin-top: 84px; }
+@media (max-width: 640px){
+  :target { scroll-margin-top: 66px; }
+}
+/* ===== 常時固定ヘッダー（スマホ/PC） ===== */
+:root{ --header-h: 64px; }           /* 初期値。JSで実寸に上書きします */
+
+header, .site-header, body > header{
   position: fixed;
   top: 0; left: 0; right: 0;
   z-index: 10000;
@@ -21,210 +509,97 @@ header, .site-header, body > header {
   -webkit-backdrop-filter: saturate(180%) blur(10px);
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid rgba(0,0,0,.06);
-  max-width: none !important;
-  width: 100vw !important;
-  margin-left: calc(50% - 50vw) !important;
-  margin-right: calc(50% - 50vw) !important;
-}
-header .inner, .site-header .inner, body > header .inner {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding-inline: clamp(12px, 2vw, 24px);
-  display: flex; align-items: center; gap: 16px;
-}
-body { padding-top: var(--header-h); }
-body.scrolled header { background: rgba(255,255,255,.92); box-shadow: 0 6px 24px rgba(0,0,0,.06); }
-
-/* ===== Hero ===== */
-.hero {
-  min-height: 100vh;
-  display: flex; flex-direction: column;
-  justify-content: center; align-items: center;
-  text-align: center;
-  background: linear-gradient(180deg,#ffeaf3 0%,#fff 100%);
-  position: relative; overflow: hidden;
-}
-.hero h1 { font-size: clamp(2.2rem, 5vw, 3rem); margin-bottom: 1rem; }
-.hero p  { font-size: clamp(1rem, 2.5vw, 1.3rem); }
-
-/* ===== 桜アニメーション ===== */
-.petals {
-  position: absolute; inset:0;
-  pointer-events:none; overflow:hidden;
 }
 
-/* ===== セクション ===== */
-section { padding: 64px 20px; max-width: 1120px; margin: 0 auto; }
-section h2 { font-size: 2rem; margin-bottom: 24px; text-align: center; }
+/* ヘッダーの重なりで本文が隠れないように上に余白を確保 */
+html, body { overflow-x: hidden; }   /* 横スクロール保険 */
+body{ padding-top: var(--header-h); }
 
-/* ===== Works ===== */
-#works-home.cat-cards {
-  display: grid; gap: 20px;
-  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-}
-.cat-card {
-  display:flex; align-items:center;
-  gap:12px; padding:20px;
-  border-radius:12px;
-  background:#fff; box-shadow:0 4px 14px rgba(0,0,0,.06);
-  transition: transform .2s;
-}
-.cat-card:hover { transform: translateY(-2px); }
-.cat-body .cat-title { font-size:1.2rem; font-weight:700; }
-.cat-body .cat-sub { font-size:.9rem; color:#777; }
-
-.tabs { display:flex; gap:8px; justify-content:center; margin-bottom:20px; flex-wrap:wrap; }
-.tab { padding:6px 14px; border-radius:999px; background:#ffe0ed; }
-.tab.active { background:#ffb7d0; font-weight:700; }
-.grid { display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
-.card { text-align:left; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.06); transition: transform .2s; }
-.card:hover{ transform:translateY(-2px); }
-.card .thumb img { width:100%; height:auto; display:block; }
-.card .body{ padding:12px; }
-.card .title{ font-size:1rem; font-weight:700; margin-bottom:4px; }
-.card .meta{ font-size:.8rem; color:#777; display:flex; gap:8px; }
-
-/* ===== Modal ===== */
-.modal.hidden { display:none; }
-.modal {
-  position:fixed; inset:0;
-  display:flex; align-items:center; justify-content:center;
-  z-index:20000;
-}
-.modal-backdrop {
-  position:absolute; inset:0;
-  background:rgba(0,0,0,.6);
-}
-.modal-content {
-  position:relative; z-index:1;
-  max-width: min(90vw, 960px);
-  max-height: 90vh;
-  overflow-y:auto;
-  background:#fff; border-radius:12px; padding:20px;
-}
-.modal-content img { max-width:100%; height:auto; display:block; margin:0 auto 16px; }
-.modal-content h3 { margin-bottom:8px; }
-.modal-content p { white-space:pre-wrap; }
-.modal-close {
-  position:absolute; top:8px; right:8px;
-  font-size:1.5rem; background:none; border:none; cursor:pointer;
+/* スクロール後に少しだけ影を強める（任意） */
+body.scrolled header,
+body.scrolled .site-header,
+body.scrolled > header{
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+  background: rgba(255,255,255,.92);
 }
 
-/* ===== Contact ===== */
-.contact { display:grid; gap:16px; max-width:500px; margin:0 auto; }
-.contact-item {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 20px; border-radius:12px;
-  background:#fff; box-shadow:0 4px 14px rgba(0,0,0,.06);
-}
-.contact-item .mini { font-size:.8rem; color:#777; }
+/* アンカー(#about 等)に飛んだ時の被り防止 */
+:target{ scroll-margin-top: calc(var(--header-h) + 12px); }
 
-/* ===== Footer ===== */
-footer { text-align:center; padding:24px; font-size:.9rem; color:#777; }
-
-/* ===== Responsive ===== */
-@media (max-width: 640px){
-  section { padding: 48px 16px; }
-  .hero h1{ font-size:2rem; }
-  .hero p{ font-size:1rem; }
-}
-
-/* ===== Emergency Stabilizer (append-only) ===== */
-
-/* 基本の保険 */
-*,*::before,*::after{ box-sizing:border-box; }
-img,video{ max-width:100%; height:auto; display:block; }
-
-/* ヘッダー：必ず上固定＋フル幅 */
-:root{ --header-h: 64px; --content-max: 1120px; }
-body > header, header, .site-header{
-  position: fixed; top:0; left:0; right:0; z-index:10000;
+/* ヘッダーは常にフルブリード（画面いっぱい） */
+header, .site-header, body > header{
+  position: fixed;
+  top: 0;
+  left: 0; right: 0;           /* ← これでビューポートいっぱい */
+  z-index: 10000;
   background: rgba(255,255,255,.85);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
   backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid rgba(0,0,0,.06);
-  max-width: none !important; width: 100vw !important;
-  margin-left: calc(50% - 50vw) !important;
-  margin-right: calc(50% - 50vw) !important;
 }
-body > header .inner, header .inner, .site-header .inner{
-  max-width: var(--content-max); margin:0 auto;
+
+/* ヘッダー内の“中身”だけは本文幅に合わせて中央寄せ */
+header .inner, .site-header .inner, body > header .inner{
+  max-width: var(--content-max, 1120px);
+  margin: 0 auto;
   padding-inline: clamp(12px, 2vw, 24px);
-  display:flex; align-items:center; gap:16px;
+  display: flex; align-items: center; gap: 16px;
 }
-html,body{ overflow-x:hidden; }
-body{ padding-top: var(--header-h); }
 
-/* Hero（最初の大きな帯）は常に全幅、中央寄せテキスト */
-:is(#hero,.hero, body > main > section:first-of-type){
-  max-width:none !important; width:100vw !important;
+/* 本文がヘッダーの下に潜らないように上余白を自動で確保 */
+:root{ --header-h: 64px; }         /* JSで実寸に上書きします */
+body{ padding-top: var(--header-h); }
+html, body{ overflow-x: hidden; }  /* 横スクロール抑止 */
+
+/* スクロール時に少し影を強める（任意） */
+body.scrolled header{ 
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 6px 24px rgba(0,0,0,.06);
+}
+
+/* アンカー(#about 等)のずれ対策 */
+:target{ scroll-margin-top: calc(var(--header-h) + 12px); }
+
+/* ===== ヘッダーを画面いっぱい、内側は本文幅に ===== */
+:root{ --header-h: 64px; }
+
+body > header,            /* できるだけ強く捕まえる */
+header,
+.site-header{
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 10000;
+
+  /* ★ 中央幅の制限を解除してフルブリード化 */
+  max-width: none !important;
+  width: 100vw !important;
   margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
-  padding-left: max(24px, calc(50vw - var(--content-max)/2));
-  padding-right:max(24px, calc(50vw - var(--content-max)/2));
-  background: linear-gradient(180deg,#ffeaf3 0%,#fff 100%);
-}
-.petals{ position:absolute; inset:0; pointer-events:none; overflow:hidden; }
 
-/* 以降のセクションは中央幅で */
-:is(main, section, .section, .section-inner, .container){
-  max-width: var(--content-max); margin-inline:auto; padding-inline:24px;
-}
-@media (max-width:640px){
-  :is(main, section, .section, .section-inner, .container){ padding-inline:12px; }
+  /* 背景はヘッダー本体に付ける（内側には付けない） */
+  background: rgba(255,255,255,.85) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
+  backdrop-filter: saturate(180%) blur(10px);
+  border-bottom: 1px solid rgba(0,0,0,.06);
 }
 
-/* Works：カテゴリカードとグリッドを安定化 */
-#works-home.cat-cards{
-  display:grid; gap:20px;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-}
-.cat-card{
-  display:flex; align-items:center; gap:12px; padding:20px;
-  border-radius:12px; background:#fff;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
-}
-.cat-body .cat-title{ font-weight:700; font-size:1.1rem; }
-.cat-body .cat-sub{ color:#777; font-size:.9rem; }
-
-.tabs{ display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:16px 0 20px; }
-.tab{ padding:6px 14px; border-radius:999px; background:#ffe0ed; }
-.tab.active{ background:#ffb7d0; font-weight:700; }
-
-#grid, .grid{
-  display:grid; gap:20px;
-  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
-}
-.card{ background:#fff; border-radius:12px; overflow:hidden;
-  box-shadow:0 4px 14px rgba(0,0,0,.06); text-align:left; }
-.card .thumb img{ width:100%; height:auto; display:block; }
-.card .body{ padding:12px; }
-.card .title{ font-weight:700; margin-bottom:4px; font-size:1rem; }
-.card .meta{ font-size:.85rem; color:#777; display:flex; gap:8px; }
-
-/* Modal（開閉の保険） */
-.modal.hidden{ display:none !important; }
-.modal{
-  position:fixed; inset:0; z-index:20000;
-  display:flex; align-items:center; justify-content:center;
-}
-.modal-backdrop{ position:absolute; inset:0; background:rgba(0,0,0,.6); }
-.modal-content{
-  position:relative; z-index:1; background:#fff; border-radius:12px; padding:20px;
-  max-width:min(90vw,960px); max-height:90vh; overflow:auto;
-}
-.modal-close{ position:absolute; top:8px; right:8px; font-size:1.5rem; }
-
-/* Contact（2列→1列） */
-.contact-grid{
-  display:grid; grid-template-columns: 1fr 1fr; gap:12px 16px; max-width:500px; margin:0 auto;
-}
-@media (max-width:640px){ .contact-grid{ grid-template-columns:1fr; gap:10px; } }
-.contact-item{
-  display:flex; align-items:center; justify-content:space-between;
-  padding:14px 20px; border-radius:12px; background:#fff;
-  box-shadow:0 4px 14px rgba(0,0,0,.06);
+/* 内側ラッパー（ロゴとナビを包む要素）を中央幅に */
+body > header > .inner,
+header > .inner,
+.site-header > .inner{
+  max-width: var(--content-max, 1120px) !important;
+  margin: 0 auto !important;
+  padding-inline: clamp(12px, 2vw, 24px);
+  background: transparent !important;   /* ★ 白帯が真ん中だけになるのを防ぐ */
 }
 
-/* ユーティリティ */
-.hidden{ display:none !important; }
+/* 本文がヘッダーの下に潜らないように余白を確保 */
+body{ padding-top: var(--header-h); }
+html, body{ overflow-x: hidden; }
+
+/* スクロール時の影（任意） */
+body.scrolled header{ background: rgba(255,255,255,.92); box-shadow: 0 6px 24px rgba(0,0,0,.06); }
+
+/* アンカー位置補正 */
+:target{ scroll-margin-top: calc(var(--header-h) + 12px); }
+
