@@ -141,7 +141,6 @@ const params = new URLSearchParams(location.search);
 const ADMIN_ENABLED = params.has("admin");
 
 if (!ADMIN_ENABLED) {
-  adminBtn?.remove();
   admin?.remove();
 } else {
   // 右上⚙
