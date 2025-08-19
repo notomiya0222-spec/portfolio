@@ -3,7 +3,7 @@ const $ = (sel, el=document) => el.querySelector(sel);
 const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
 
 // ====== 初期データ（読み込み失敗時のフォールバック） ======
-const DEFAULT_PROJECTS = [
+const DEFAULT_PROJECT = [
   // Illustration
   { id: crypto.randomUUID(), title: "活動宣伝用のイラスト", kind: "Illustration", category: "30h", date: "2025-08-11", coverUrl: "./images/くみあわせ.png", link: "", tags: "Illustration", description: "" },
   { id: crypto.randomUUID(), title: "きつねのアイコン", kind: "Illustration", category: "1h30min", date: "2024-01-05", coverUrl: "./images/きつねアイコン.png", link: "", tags: "Illustration", description: "" },
@@ -17,7 +17,7 @@ const DEFAULT_PROJECTS = [
 ];
 
 // ====== State ======
-let projects = DEFAULT_PROJECTS; // 起動時に projects.json を fetch して上書き
+let project = DEFAULT_PROJECT; // 起動時に project.json を fetch して上書き
 let view = "home";               // home | list
 let activeKind = "Illustration";
 
@@ -78,7 +78,7 @@ function renderTabs(){
 }
 function renderGrid(){
   grid.innerHTML = "";
-  projects.filter(p => (p.kind||"").includes(activeKind)).forEach(item => {
+  project.filter(p => (p.kind||"").includes(activeKind)).forEach(item => {
     const card = document.createElement("button");
     card.className = "card";
     card.innerHTML = `
@@ -123,16 +123,16 @@ backBtn.addEventListener("click", ()=> showHome());
 tabs.forEach(t => t.addEventListener("click", ()=> showList(t.dataset.kind)));
 
 // ====== JSONをロード（起動時） ======
-async function loadProjects() {
+async function loadProject() {
   try {
-    const res = await fetch(`./projects.json?ts=${Date.now()}`, { cache: "no-store" });
+    const res = await fetch(`./project.json?ts=${Date.now()}`, { cache: "no-store" });
     if (res.ok) {
-      projects = await res.json();
+      project = await res.json();
     } else {
-      console.warn("projects.json が見つからないため、初期データを使用します。");
+      console.warn("project.json が見つからないため、初期データを使用します。");
     }
   } catch (e) {
-    console.warn("projects.json の読み込みに失敗。初期データで起動します。", e);
+    console.warn("project.json の読み込みに失敗。初期データで起動します。", e);
   }
 }
 
@@ -172,10 +172,10 @@ if (!ADMIN_ENABLED) {
 
   // JSON入出力
   jsonExport?.addEventListener("click", ()=>{
-    const blob = new Blob([JSON.stringify(projects, null, 2)], {type: "application/json"});
+    const blob = new Blob([JSON.stringify(project, null, 2)], {type: "application/json"});
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
-    a.href = url; a.download = "projects.json"; a.click();
+    a.href = url; a.download = "project.json"; a.click();
     URL.revokeObjectURL(url);
   });
 
@@ -187,7 +187,7 @@ if (!ADMIN_ENABLED) {
       try{
         const data = JSON.parse(reader.result);
         if(Array.isArray(data)){
-          projects = data;
+          project = data;
           renderAdminList();
           if (view === "list") renderGrid();
           alert("JSONを読み込みました（この状態で JSONを書き出し するとバックアップできます）");
@@ -198,7 +198,7 @@ if (!ADMIN_ENABLED) {
   });
 
   addItemBtn?.addEventListener("click", ()=>{
-    projects = [{
+    project = [{
       id: crypto.randomUUID(),
       title: "",
       kind: "Illustration",
@@ -208,13 +208,13 @@ if (!ADMIN_ENABLED) {
       link: "",
       tags: "",
       description: ""
-    }, ...projects];
+    }, ...project];
     renderAdminList();
   });
 
   function renderAdminList(){
     adminList.innerHTML = "";
-    projects.forEach(p => {
+    project.forEach(p => {
       const row = document.createElement("div");
       row.className = "admin-item";
       row.innerHTML = `
@@ -245,7 +245,7 @@ if (!ADMIN_ENABLED) {
       });
       row.addEventListener("click", (e)=>{
         if(e.target.dataset.act === "del"){
-          projects = projects.filter(x => x.id !== p.id);
+          project = project.filter(x => x.id !== p.id);
           renderAdminList();
           if (view === "list") renderGrid();
         }
@@ -262,7 +262,7 @@ function escapeHtml(str=""){
 
 // ====== 起動 ======
 (async function init(){
-  await loadProjects(); // projects.json をロード（失敗時は DEFAULT_PROJECTS）
+  await loadProject(); // project.json をロード（失敗時は DEFAULT_PROJECT）
   showHome();
 })();
 
